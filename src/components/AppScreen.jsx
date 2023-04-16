@@ -39,9 +39,9 @@ export function Logomark(props) {
 
 export function Logo(props) {
   return (
-    <div className="flex flex-row gap-4 text-sm items-center">
+    <div className="flex flex-row gap-2 md:gap-4 text-sm items-center">
       <Logomark width={15} height={15}/>
-      <div className="font-bold text-black">Responsibility Roadmap</div>
+      <div className="font-bold text-black text-[11px] md:text-sm">Responsibility Roadmap</div>
     </div>
   )
 }
