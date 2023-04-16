@@ -15,13 +15,15 @@ export function CallToAction() {
       <Container className="relative">
         <div className="mx-auto max-w-md sm:text-center">
           <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl">
-          Ready to test your responsibility readiness?
+            Ready to test your responsibility readiness?
           </h2>
           <p className="mt-4 text-lg text-gray-300">
-          Take our quick quiz now and find out how prepared you are for the real world! Click here to start your journey towards greater independence and success.
+            Take our quick quiz now and find out how prepared you are for the
+            real world! Click here to start your journey towards greater
+            independence and success.
           </p>
           <div className="mt-8 flex justify-center">
-            <Button href="/">Take the Quiz Now</Button>
+            <Button href="/#readiness-quiz">Take the Quiz Now</Button>
           </div>
         </div>
       </Container>

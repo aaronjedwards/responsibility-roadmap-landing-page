@@ -131,7 +131,7 @@ export function ReadinessQuiz() {
               </div>
             ) : (
               <>
-                <h3 className="pb-4 text-center text-lg font-semibold leading-6 text-gray-900">
+                <h3 className="pb-8 text-center text-lg font-semibold leading-6 text-gray-900">
                   {question}
                 </h3>
                 <ul role="list" className="space-y-2">

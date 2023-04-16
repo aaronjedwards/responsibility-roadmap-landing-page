@@ -20,7 +20,7 @@ const plans = [
     features: [
       'Access to all learning modules',
       'Recommended resources',
-      'Helpful tools',
+      'Helpful planning tools',
     ],
     logomarkClassName: 'fill-gray-300',
   },
@@ -35,7 +35,7 @@ const plans = [
       href: '/register',
     },
     features: [
-      'Everything in the basic plan',
+      'Everything in the Essential plan',
       'Personalized 1-on-1 coaching',
       'Exclusive networking features',
     ],
@@ -184,7 +184,8 @@ export function Pricing() {
             Free forever. No credit card required.
           </h2>
           <p className="mt-2 text-lg text-gray-600">
-            Our platform is free to use for as long as you want. You can also try our premium features for free for 14 days.
+            Our platform is free to use for as long as you want. You can also
+            try our premium features for free for 14 days.
           </p>
         </div>
 
@@ -234,7 +235,7 @@ export function Pricing() {
           </div>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-2">
+        <div className="mx-auto mt-16 flex max-w-2xl flex-col-reverse items-start gap-x-8 gap-y-10 sm:mt-20 md:grid lg:max-w-none lg:grid-cols-2">
           {plans.map((plan) => (
             <Plan key={plan.name} {...plan} activePeriod={activePeriod} />
           ))}
