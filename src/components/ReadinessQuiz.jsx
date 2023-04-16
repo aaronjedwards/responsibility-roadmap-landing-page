@@ -1,44 +1,109 @@
-import Link from 'next/link'
-
+import React, { useMemo, useState } from 'react'
 import { Container } from '@/components/Container'
+import { Button } from './Button'
 
-const questions = [
+const responsibilityReadinessQuiz = [
   {
-    question: "What kind of things can I expect to learn?",
-    answer: "You can expect to learn about living independently, financial literacy, taxes, time management skills, and more."
+    question:
+      'Which of the following is an essential step in creating a personal budget?',
+    answers: [
+      { text: 'Calculating your monthly income', correct: true },
+      { text: 'Choosing your favorite restaurants', correct: false },
+      { text: 'Deciding on a vacation destination', correct: false },
+      { text: 'Picking a new hobby', correct: false },
+    ],
   },
   {
-    question: "Is the app free to use?",
-    answer: "Yes, Responsibility Roadmap is a free platform aimed at helping individuals prepare for the real world."
+    question: 'What is the primary purpose of an emergency fund?',
+    answers: [
+      { text: 'To pay for an extravagant vacation', correct: false },
+      {
+        text: 'To cover unexpected expenses or financial emergencies',
+        correct: true,
+      },
+      { text: 'To invest in high-risk stocks', correct: false },
+      { text: 'To buy a new car', correct: false },
+    ],
   },
   {
-    question: "Who is this designed for?",
-    answer: "Responsibility Roadmap is designed for young adults transitioning into independence, college students, and early-career professionals seeking to improve essential life skills."
+    question: 'How often should you review and adjust your personal budget?',
+    answers: [
+      { text: 'Once a year', correct: false },
+      { text: 'Every 5 years', correct: false },
+      {
+        text: 'Monthly or whenever your financial situation changes',
+        correct: true,
+      },
+      { text: 'Never', correct: false },
+    ],
   },
   {
-    question: "How do I access the learning modules?",
-    answer: "Simply visit our website, sign up for a free account, and you'll have access to all of our learning modules."
+    question:
+      'Which of the following is a key strategy for effective time management?',
+    answers: [
+      { text: 'Procrastination', correct: false },
+      { text: 'Overloading your schedule with tasks', correct: false },
+      { text: 'Setting priorities and creating a to-do list', correct: true },
+      { text: 'Ignoring deadlines', correct: false },
+    ],
   },
   {
-    question: "Do I need any prior knowledge or experience to use this?",
-    answer: "No, Responsibility Roadmap is designed for users of all backgrounds and experience levels. Our learning modules cater to a variety of skill levels and are designed to help you learn at your own pace."
+    question:
+      'When filing your taxes, why is it important to keep track of your deductions and credits?',
+    answers: [
+      { text: 'To increase the complexity of your tax return', correct: false },
+      {
+        text: 'To potentially lower your taxable income and tax liability',
+        correct: true,
+      },
+      {
+        text: 'To impress your friends with your organizational skills',
+        correct: false,
+      },
+      {
+        text: 'Deductions and credits have no impact on your taxes',
+        correct: false,
+      },
+    ],
   },
-  {
-    question: "Can I track my progress through the learning modules?",
-    answer: "Yes, Responsibility Roadmap allows you to track your progress and achievements as you complete each learning module."
-  },
-  {
-    question: "Are there any additional resources available on the platform?",
-    answer: "Yes, Responsibility Roadmap offers a variety of supplementary resources, including articles, videos, and community forums to support your learning experience."
-  },
-  {
-    question: "Can I access this on my mobile device?",
-    answer: "Yes, Responsibility Roadmap is accessible on all major devices, including smartphones, tablets, and computers."
-  }
-];
-
+]
 
 export function ReadinessQuiz() {
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [showScore, setShowScore] = useState(false)
+  const [userAnswers, setUserAnswers] = useState(
+    Array(responsibilityReadinessQuiz.length).fill(null)
+  )
+
+  const handleAnswerClick = (answerIndex) => {
+    const newUserAnswers = [...userAnswers]
+    newUserAnswers[currentQuestion] = answerIndex
+    setUserAnswers(newUserAnswers)
+
+    if (currentQuestion < responsibilityReadinessQuiz.length - 1) {
+      setCurrentQuestion(currentQuestion + 1)
+    } else {
+      setShowScore(true)
+    }
+  }
+
+  const { question, answers } = responsibilityReadinessQuiz[currentQuestion]
+
+  const score = useMemo(() => {
+    // determine the users score based on the number of correct answers
+    let score = 0
+    console.log(userAnswers)
+    userAnswers.forEach((answerIndex, i) => {
+      if (
+        responsibilityReadinessQuiz[i].answers[answerIndex] &&
+        responsibilityReadinessQuiz[i].answers[answerIndex].correct
+      ) {
+        score++
+      }
+    })
+    return score
+  }, [userAnswers])
+
   return (
     <section
       id="readiness-quiz"
@@ -46,30 +111,45 @@ export function ReadinessQuiz() {
       className="border-t border-gray-200 py-20 sm:py-32"
     >
       <Container>
-      <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-2xl text-center">
           <h2
             id="pricing-title"
             className="text-3xl font-medium tracking-tight text-gray-900"
           >
             Responsibility Readiness Quiz.
           </h2>
-          <p className="mt-2 text-lg text-gray-600">
-            How prepared are you?
-          </p>
+          <p className="mt-2 text-lg text-gray-600">How prepared are you?</p>
         </div>
-        <ul
-          role="list"
-          className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20"
-        >
-          {questions.map((question, columnIndex) => (
-            <li key={columnIndex} className="border p-6 rounded-lg">
-              <h3 className="text-lg font-semibold leading-6 text-gray-900">
-                      {question.question}
-                    </h3>
-              <p className="mt-4 text-sm text-gray-700">{question.answer}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="flex w-full justify-center">
+          <div className="mt-6 w-full max-w-lg rounded-lg border p-6">
+            {showScore ? (
+              <div className="flex flex-col items-center justify-center gap-4">
+                <h3 className="text-lg text-gray-900">
+                  You answered {score} out of{' '}
+                  {responsibilityReadinessQuiz.length} questions correctly
+                </h3>
+                <Button href="/login">Get started to learn even more!</Button>
+              </div>
+            ) : (
+              <>
+                <h3 className="pb-4 text-lg font-semibold leading-6 text-gray-900">
+                  {question}
+                </h3>
+                <ul role="list" className="space-y-2">
+                  {answers.map((answer, j) => (
+                    <li
+                      key={j}
+                      className="cursor-pointer rounded-lg border hover:bg-blue-50"
+                      onClick={() => handleAnswerClick(j)}
+                    >
+                      <p className="p-2 text-sm text-gray-700">{answer.text}</p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </div>
       </Container>
     </section>
   )
