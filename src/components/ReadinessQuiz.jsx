@@ -92,7 +92,6 @@ export function ReadinessQuiz() {
   const score = useMemo(() => {
     // determine the users score based on the number of correct answers
     let score = 0
-    console.log(userAnswers)
     userAnswers.forEach((answerIndex, i) => {
       if (
         responsibilityReadinessQuiz[i].answers[answerIndex] &&
@@ -124,7 +123,7 @@ export function ReadinessQuiz() {
           <div className="mt-6 w-full max-w-lg rounded-lg border p-6">
             {showScore ? (
               <div className="flex flex-col items-center justify-center gap-4">
-                <h3 className="text-lg text-gray-900">
+                <h3 className="text-center text-lg text-gray-900">
                   You answered {score} out of{' '}
                   {responsibilityReadinessQuiz.length} questions correctly
                 </h3>
@@ -132,7 +131,7 @@ export function ReadinessQuiz() {
               </div>
             ) : (
               <>
-                <h3 className="pb-4 text-lg font-semibold leading-6 text-gray-900">
+                <h3 className="pb-4 text-center text-lg font-semibold leading-6 text-gray-900">
                   {question}
                 </h3>
                 <ul role="list" className="space-y-2">
